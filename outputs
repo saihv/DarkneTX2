@@ -1,0 +1,780 @@
+./src/parser.c:    layer l = make_deconvolutional_layer(batch,h,w,c,n,size,stride,padding, activation, batch_normalize, params.net->adam);
+./src/parser.c:    convolutional_layer layer = make_convolutional_layer(batch,h,w,c,n,groups,size,stride,padding,activation, batch_normalize, binary, xnor, params.net->adam);
+./src/parser.c:    layer l = make_rnn_layer(params.batch, params.inputs, output, params.time_steps, activation, batch_normalize, params.net->adam);
+./src/parser.c:    layer l = make_gru_layer(params.batch, params.inputs, output, params.time_steps, batch_normalize, params.net->adam);
+./src/parser.c:    layer l = make_lstm_layer(params.batch, params.inputs, output, params.time_steps, batch_normalize, params.net->adam);
+./src/parser.c:    layer l = make_connected_layer(params.batch, params.inputs, output, activation, batch_normalize, params.net->adam);
+./src/parser.c:    layer from = net->layers[index];
+./src/parser.c:        sizes[i] = net->layers[index].outputs;
+./src/parser.c:    convolutional_layer first = net->layers[layers[0]];
+./src/parser.c:        convolutional_layer next = net->layers[index];
+./src/parser.c:    net->batch = option_find_int(options, "batch",1);
+./src/parser.c:    net->learning_rate = option_find_float(options, "learning_rate", .001);
+./src/parser.c:    net->momentum = option_find_float(options, "momentum", .9);
+./src/parser.c:    net->decay = option_find_float(options, "decay", .0001);
+./src/parser.c:    net->time_steps = option_find_int_quiet(options, "time_steps",1);
+./src/parser.c:    net->notruth = option_find_int_quiet(options, "notruth",0);
+./src/parser.c:    net->batch /= subdivs;
+./src/parser.c:    net->batch *= net->time_steps;
+./src/parser.c:    net->subdivisions = subdivs;
+./src/parser.c:    net->random = option_find_int_quiet(options, "random", 0);
+./src/parser.c:    net->adam = option_find_int_quiet(options, "adam", 0);
+./src/parser.c:    if(net->adam){
+./src/parser.c:        net->B1 = option_find_float(options, "B1", .9);
+./src/parser.c:        net->B2 = option_find_float(options, "B2", .999);
+./src/parser.c:        net->eps = option_find_float(options, "eps", .0000001);
+./src/parser.c:    net->h = option_find_int_quiet(options, "height",0);
+./src/parser.c:    net->w = option_find_int_quiet(options, "width",0);
+./src/parser.c:    net->c = option_find_int_quiet(options, "channels",0);
+./src/parser.c:    net->inputs = option_find_int_quiet(options, "inputs", net->h * net->w * net->c);
+./src/parser.c:    net->max_crop = option_find_int_quiet(options, "max_crop",net->w*2);
+./src/parser.c:    net->min_crop = option_find_int_quiet(options, "min_crop",net->w);
+./src/parser.c:    net->max_ratio = option_find_float_quiet(options, "max_ratio", (float) net->max_crop / net->w);
+./src/parser.c:    net->min_ratio = option_find_float_quiet(options, "min_ratio", (float) net->min_crop / net->w);
+./src/parser.c:    net->center = option_find_int_quiet(options, "center",0);
+./src/parser.c:    net->angle = option_find_float_quiet(options, "angle", 0);
+./src/parser.c:    net->aspect = option_find_float_quiet(options, "aspect", 1);
+./src/parser.c:    net->saturation = option_find_float_quiet(options, "saturation", 1);
+./src/parser.c:    net->exposure = option_find_float_quiet(options, "exposure", 1);
+./src/parser.c:    net->hue = option_find_float_quiet(options, "hue", 0);
+./src/parser.c:    if(!net->inputs && !(net->h && net->w && net->c)) error("No input parameters supplied");
+./src/parser.c:    net->policy = get_policy(policy_s);
+./src/parser.c:    net->burn_in = option_find_int_quiet(options, "burn_in", 0);
+./src/parser.c:    net->power = option_find_float_quiet(options, "power", 4);
+./src/parser.c:    if(net->policy == STEP){
+./src/parser.c:        net->step = option_find_int(options, "step", 1);
+./src/parser.c:        net->scale = option_find_float(options, "scale", 1);
+./src/parser.c:    } else if (net->policy == STEPS){
+./src/parser.c:        net->scales = scales;
+./src/parser.c:        net->steps = steps;
+./src/parser.c:        net->num_steps = n;
+./src/parser.c:    } else if (net->policy == EXP){
+./src/parser.c:        net->gamma = option_find_float(options, "gamma", 1);
+./src/parser.c:    } else if (net->policy == SIG){
+./src/parser.c:        net->gamma = option_find_float(options, "gamma", 1);
+./src/parser.c:        net->step = option_find_int(options, "step", 1);
+./src/parser.c:    } else if (net->policy == POLY || net->policy == RANDOM){
+./src/parser.c:    net->max_batches = option_find_int(options, "max_batches", 0);
+./src/parser.c:    net->gpu_index = gpu_index;
+./src/parser.c:    params.h = net->h;
+./src/parser.c:    params.w = net->w;
+./src/parser.c:    params.c = net->c;
+./src/parser.c:    params.inputs = net->inputs;
+./src/parser.c:    params.batch = net->batch;
+./src/parser.c:    params.time_steps = net->time_steps;
+./src/parser.c:            net->hierarchy = l.softmax_tree;
+./src/parser.c:            l.output = net->layers[count-1].output;
+./src/parser.c:            l.delta = net->layers[count-1].delta;
+./src/parser.c:            l.output_gpu = net->layers[count-1].output_gpu;
+./src/parser.c:            l.delta_gpu = net->layers[count-1].delta_gpu;
+./src/parser.c:        net->layers[count] = l;
+./src/parser.c:    net->outputs = out.outputs;
+./src/parser.c:    net->truths = out.outputs;
+./src/parser.c:    if(net->layers[net->n-1].truths) net->truths = net->layers[net->n-1].truths;
+./src/parser.c:    net->output = out.output;
+./src/parser.c:    net->input = calloc(net->inputs*net->batch, sizeof(float));
+./src/parser.c:    net->truth = calloc(net->truths*net->batch, sizeof(float));
+./src/parser.c:    net->output_gpu = out.output_gpu;
+./src/parser.c:    net->input_gpu = cuda_make_array(net->input, net->inputs*net->batch);
+./src/parser.c:    net->truth_gpu = cuda_make_array(net->truth, net->truths*net->batch);
+./src/parser.c:            net->workspace = cuda_make_array(0, (workspace_size-1)/sizeof(float)+1);
+./src/parser.c:            net->workspace = calloc(1, workspace_size);
+./src/parser.c:        net->workspace = calloc(1, workspace_size);
+./src/parser.c:    if(net->gpu_index >= 0){
+./src/parser.c:        cuda_set_device(net->gpu_index);
+./src/parser.c:    fwrite(net->seen, sizeof(size_t), 1, fp);
+./src/parser.c:    for(i = 0; i < net->n && i < cutoff; ++i){
+./src/parser.c:        layer l = net->layers[i];
+./src/parser.c:    save_weights_upto(net, filename, net->n);
+./src/parser.c:    if(net->gpu_index >= 0){
+./src/parser.c:        cuda_set_device(net->gpu_index);
+./src/parser.c:        fread(net->seen, sizeof(size_t), 1, fp);
+./src/parser.c:        *net->seen = iseen;
+./src/parser.c:    for(i = start; i < net->n && i < cutoff; ++i){
+./src/parser.c:        layer l = net->layers[i];
+./src/parser.c:    load_weights_upto(net, filename, 0, net->n);
+./src/demo.c:    layer l = net->layers[net->n-1];
+./src/demo.c:        get_region_boxes(l, buff[0].w, buff[0].h, net->w, net->h, demo_thresh, probs, boxes, 0, 0, 0, demo_hier, 1);
+./src/demo.c:    letterbox_image_into(buff[buff_index], net->w, net->h, buff_letter[buff_index]);
+./src/demo.c:    layer l = net->layers[net->n-1];
+./src/demo.c:    buff_letter[0] = letterbox_image(buff[0], net->w, net->h);
+./src/demo.c:    buff_letter[1] = letterbox_image(buff[0], net->w, net->h);
+./src/demo.c:    buff_letter[2] = letterbox_image(buff[0], net->w, net->h);
+./src/demo.c:    layer l = net->layers[net->n-1];
+./src/demo.c:    buff_letter[0] = letterbox_image(buff[0], net->w, net->h);
+./src/demo.c:    buff_letter[1] = letterbox_image(buff[0], net->w, net->h);
+./src/demo.c:    buff_letter[2] = letterbox_image(buff[0], net->w, net->h);
+./src/network.c:    args.w = net->w;
+./src/network.c:    args.h = net->h;
+./src/network.c:    args.size = net->w;
+./src/network.c:    args.min = net->min_crop;
+./src/network.c:    args.max = net->max_crop;
+./src/network.c:    args.angle = net->angle;
+./src/network.c:    args.aspect = net->aspect;
+./src/network.c:    args.exposure = net->exposure;
+./src/network.c:    args.center = net->center;
+./src/network.c:    args.saturation = net->saturation;
+./src/network.c:    args.hue = net->hue;
+./src/network.c:    if(clear) (*net->seen) = 0;
+./src/network.c:    size_t batch_num = (*net->seen)/(net->batch*net->subdivisions);
+./src/network.c:    for (i = 0; i < net->n; ++i) {
+./src/network.c:        layer l = net->layers[i];
+./src/network.c:    if (batch_num < net->burn_in) return net->learning_rate * pow((float)batch_num / net->burn_in, net->power);
+./src/network.c:    switch (net->policy) {
+./src/network.c:            return net->learning_rate;
+./src/network.c:            return net->learning_rate * pow(net->scale, batch_num/net->step);
+./src/network.c:            rate = net->learning_rate;
+./src/network.c:            for(i = 0; i < net->num_steps; ++i){
+./src/network.c:                if(net->steps[i] > batch_num) return rate;
+./src/network.c:                rate *= net->scales[i];
+./src/network.c:            return net->learning_rate * pow(net->gamma, batch_num);
+./src/network.c:            return net->learning_rate * pow(1 - (float)batch_num / net->max_batches, net->power);
+./src/network.c:            return net->learning_rate * pow(rand_uniform(0,1), net->power);
+./src/network.c:            return net->learning_rate * (1./(1.+exp(net->gamma*(batch_num - net->step))));
+./src/network.c:            return net->learning_rate;
+./src/network.c:    net->n = n;
+./src/network.c:    net->layers = calloc(net->n, sizeof(layer));
+./src/network.c:    net->seen = calloc(1, sizeof(size_t));
+./src/network.c:    net->t    = calloc(1, sizeof(int));
+./src/network.c:    net->cost = calloc(1, sizeof(float));
+./src/network.c:    return max_index(net->output, net->outputs);
+./src/network.c:    *net->seen += net->batch;
+./src/network.c:    net->train = 1;
+./src/network.c:    float error = *net->cost;
+./src/network.c:    if(((*net->seen)/net->batch)%net->subdivisions == 0) update_network(net);
+./src/network.c:    int batch = net->batch;
+./src/network.c:        get_random_batch(d, batch, net->input, net->truth);
+./src/network.c:    assert(d.X.rows % net->batch == 0);
+./src/network.c:    int batch = net->batch;
+./src/network.c:        get_next_batch(d, batch, i*batch, net->input, net->truth);
+./src/network.c:    for(i = 0; i < net->n; ++i){
+./src/network.c:        net->layers[i].temperature = t;
+./src/network.c:    net->batch = b;
+./src/network.c:    for(i = 0; i < net->n; ++i){
+./src/network.c:        net->layers[i].batch = b;
+./src/network.c:        if(net->layers[i].type == CONVOLUTIONAL){
+./src/network.c:            cudnn_convolutional_setup(net->layers + i);
+./src/network.c:        if(net->layers[i].type == DECONVOLUTIONAL){
+./src/network.c:            layer *l = net->layers + i;
+./src/network.c:    cuda_set_device(net->gpu_index);
+./src/network.c:    cuda_free(net->workspace);
+./src/network.c:    //if(w == net->w && h == net->h) return 0;
+./src/network.c:    net->w = w;
+./src/network.c:    net->h = h;
+./src/network.c:    for (i = 0; i < net->n; ++i){
+./src/network.c:        layer l = net->layers[i];
+./src/network.c:        net->layers[i] = l;
+./src/network.c:    net->inputs = net->layers[0].inputs;
+./src/network.c:    net->outputs = out.outputs;
+./src/network.c:    net->truths = out.outputs;
+./src/network.c:    if(net->layers[net->n-1].truths) net->truths = net->layers[net->n-1].truths;
+./src/network.c:    net->output = out.output;
+./src/network.c:    free(net->input);
+./src/network.c:    free(net->truth);
+./src/network.c:    net->input = calloc(net->inputs*net->batch, sizeof(float));
+./src/network.c:    net->truth = calloc(net->truths*net->batch, sizeof(float));
+./src/network.c:        cuda_free(net->input_gpu);
+./src/network.c:        cuda_free(net->truth_gpu);
+./src/network.c:        net->input_gpu = cuda_make_array(net->input, net->inputs*net->batch);
+./src/network.c:        net->truth_gpu = cuda_make_array(net->truth, net->truths*net->batch);
+./src/network.c:        net->workspace = cuda_make_array(0, (workspace_size-1)/sizeof(float)+1);
+./src/network.c:        free(net->workspace);
+./src/network.c:        net->workspace = calloc(1, workspace_size);
+./src/network.c:    free(net->workspace);
+./src/network.c:    net->workspace = calloc(1, workspace_size);
+./src/network.c:    for(i = 0; i < net->n; ++i){
+./src/network.c:        if(net->layers[i].type == DETECTION){
+./src/network.c:            return net->layers[i];
+./src/network.c:    layer l = net->layers[i];
+./src/network.c:    for(i = net->n-1; i >= 0; --i){
+./src/network.c:    for(i = 0; i < net->n; ++i){
+./src/network.c:        layer l = net->layers[i];
+./src/network.c:    top_k(net->output, net->outputs, k, index);
+./src/network.c:    net->input = input;
+./src/network.c:    net->truth = 0;
+./src/network.c:    net->train = 0;
+./src/network.c:    net->delta = 0;
+./src/network.c:    float *out = net->output;
+./src/network.c:    layer l = net->layers[net->n-1];
+./src/network.c:    layer l = net->layers[net->n-1];
+./src/network.c:    layer l = net->layers[net->n-1];
+./src/network.c:    layer l = net->layers[net->n-1];
+./src/network.c:        get_region_boxes(l, im.w, im.h, net->w, net->h, thresh, probs, boxes, 0, 0, 0, hier_thresh, 0);
+./src/network.c:    layer l = net->layers[net->n-1];
+./src/network.c:        get_region_boxes(l, im.w, im.h, net->w, net->h, thresh, probs, boxes, 0, 0, 0, hier_thresh, 0);
+./src/network.c:    image imr = letterbox_image(im, net->w, net->h);
+./src/network.c:int network_width(network *net){return net->w;}
+./src/network.c:int network_height(network *net){return net->h;}
+./src/network.c:    int k = net->outputs;
+./src/network.c:    float *X = calloc(net->batch*test.X.rows, sizeof(float));
+./src/network.c:    for(i = 0; i < test.X.rows; i += net->batch){
+./src/network.c:        for(b = 0; b < net->batch; ++b){
+./src/network.c:            for(b = 0; b < net->batch; ++b){
+./src/network.c:    int k = net->outputs;
+./src/network.c:    float *X = calloc(net->batch*test.X.cols, sizeof(float));
+./src/network.c:    for(i = 0; i < test.X.rows; i += net->batch){
+./src/network.c:        for(b = 0; b < net->batch; ++b){
+./src/network.c:        for(b = 0; b < net->batch; ++b){
+./src/network.c:    int k = net->outputs;
+./src/network.c:    float *X = calloc(net->batch*test.cols, sizeof(float));
+./src/network.c:    for(i = 0; i < test.rows; i += net->batch){
+./src/network.c:        for(b = 0; b < net->batch; ++b){
+./src/network.c:        fprintf(stderr, "Batch size is currently %d", net->batch);
+./src/network.c:        for(b = 0; b < net->batch; ++b){
+./src/network.c:    for(i = 0; i < net->n; ++i){
+./src/network.c:        layer l = net->layers[i];
+./src/network.c:    for(i = net->n - 1; i >= 0; --i){
+./src/network.c:        if(net->layers[i].type != COST) break;
+./src/network.c:    return net->layers[i];
+./src/network.c:    for(i = 0; i < net->n; ++i){
+./src/network.c:        free_layer(net->layers[i]);
+./src/network.c:    free(net->layers);
+./src/network.c:    if(net->input) free(net->input);
+./src/network.c:    if(net->truth) free(net->truth);
+./src/network.c:    if(net->input_gpu) cuda_free(net->input_gpu);
+./src/network.c:    if(net->truth_gpu) cuda_free(net->truth_gpu);
+./src/network.c:    for(i = net->n - 1; i >= 0; --i){
+./src/network.c:        if(net->layers[i].type != COST) break;
+./src/network.c:    return net->layers[i];
+./src/network.c:    return net->layers[0].inputs;
+./src/network.c:    cuda_set_device(args.net->gpu_index);
+./src/network.c:    layer base = net->layers[j];
+./src/route_layer.c:    layer first = net->layers[l->input_layers[0]];
+./src/route_layer.c:        layer next = net->layers[index];
+Binary file ./obj/detector.o matches
+Binary file ./obj/segmenter.o matches
+Binary file ./obj/network.o matches
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g, Inputs: %d %d %d\n", net->learning_rate, net->momentum, net->decay, inputs, net->batch, net->time_steps);
+./examples/rnn.c:    int batch = net->batch;
+./examples/rnn.c:    int steps = net->time_steps;
+./examples/rnn.c:    if(clear) *net->seen = 0;
+./examples/rnn.c:    int i = (*net->seen)/net->batch;
+./examples/rnn.c:    while(get_current_batch(net) < net->max_batches){
+./examples/rnn.c:        copy_cpu(net->inputs*net->batch, p.x, 1, net->input, 1);
+./examples/rnn.c:        copy_cpu(net->truths*net->batch, p.y, 1, net->truth, 1);
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:    for(i = 0; i < net->n; ++i) net->layers[i].temperature = temp;
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:    for(i = 0; i < net->n; ++i) net->layers[i].temperature = temp;
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:    for(i = 0; i < net->n; ++i) net->layers[i].temperature = temp;
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:    int inputs = net->inputs;
+./examples/rnn.c:        layer l = net->layers[0];
+./examples/nightmare.c:    net->n = max_layer + 1;
+./examples/nightmare.c:    layer last = net->layers[net->n-1];
+./examples/nightmare.c:    //net->layers[net->n - 1].activation = LINEAR;
+./examples/nightmare.c:    net->delta_gpu = cuda_make_array(delta.data, im.w*im.h*im.c);
+./examples/nightmare.c:    copy_cpu(net->inputs, im.data, 1, net->input, 1);
+./examples/nightmare.c:    cuda_pull_array(net->delta_gpu, delta.data, im.w*im.h*im.c);
+./examples/nightmare.c:    cuda_free(net->delta_gpu);
+./examples/nightmare.c:    net->delta_gpu = 0;
+./examples/nightmare.c:    printf("\nnet: %d %d %d im: %d %d %d\n", net->w, net->h, net->inputs, im.w, im.h, im.c);
+./examples/nightmare.c:    copy_cpu(net->inputs, im.data, 1, net->input, 1);
+./examples/nightmare.c:    net->delta = delta.data;
+./examples/nightmare.c:        cuda_push_array(net->input_gpu, recon.data, recon.w*recon.h*recon.c);
+./examples/nightmare.c:        //cuda_push_array(net->truth_gpu, features, net->truths);
+./examples/nightmare.c:        net->delta_gpu = cuda_make_array(delta.data, delta.w*delta.h*delta.c);
+./examples/nightmare.c:        cuda_pull_array(net->delta_gpu, delta.data, delta.w*delta.h*delta.c);
+./examples/nightmare.c:        cuda_free(net->delta_gpu);
+./examples/nightmare.c:        net->input = recon.data;
+./examples/nightmare.c:        net->delta = delta.data;
+./examples/nightmare.c:        net->truth = features;
+./examples/nightmare.c:        im = letterbox_image(im, net->w, net->h);
+./examples/nightmare.c:    //im = letterbox_image(im, net->w, net->h);
+./examples/nightmare.c:        net->n = max_layer;
+./examples/nightmare.c:        im = letterbox_image(im, net->w, net->h);
+./examples/nightmare.c:        if(net->layers[net->n-1].type == REGION){
+./examples/nightmare.c:            zero_objectness(net->layers[net->n-1]);
+./examples/segmenter.c:    int div = net->w/pred.w;
+./examples/segmenter.c:    assert(pred.w * div == net->w);
+./examples/segmenter.c:    assert(pred.h * div == net->h);
+./examples/segmenter.c:    int imgs = net->batch * net->subdivisions * ngpus;
+./examples/segmenter.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/segmenter.c:    args.w = net->w;
+./examples/segmenter.c:    args.h = net->h;
+./examples/segmenter.c:    args.min = net->min_crop;
+./examples/segmenter.c:    args.max = net->max_crop;
+./examples/segmenter.c:    args.angle = net->angle;
+./examples/segmenter.c:    args.aspect = net->aspect;
+./examples/segmenter.c:    args.exposure = net->exposure;
+./examples/segmenter.c:    args.saturation = net->saturation;
+./examples/segmenter.c:    args.hue = net->hue;
+./examples/segmenter.c:    args.size = net->w;
+./examples/segmenter.c:    int epoch = (*net->seen)/N;
+./examples/segmenter.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/segmenter.c:            image tr = float_to_image(net->w/div, net->h/div, 80, train.y.vals[net->batch*(net->subdivisions-1)]);
+./examples/segmenter.c:            image im = float_to_image(net->w, net->h, net->c, train.X.vals[net->batch*(net->subdivisions-1)]);
+./examples/segmenter.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), sec(clock()-time), *net->seen);
+./examples/segmenter.c:        if(*net->seen/N > epoch){
+./examples/segmenter.c:            epoch = *net->seen/N;
+./examples/segmenter.c:        image sized = letterbox_image(im, net->w, net->h);
+./examples/segmenter.c:        image in_s = letterbox_image(in, net->w, net->h);
+./examples/super.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/super.c:    int imgs = net->batch*net->subdivisions;
+./examples/super.c:    int i = *net->seen/imgs;
+./examples/super.c:    args.w = net->w;
+./examples/super.c:    args.h = net->h;
+./examples/super.c:    while(get_current_batch(net) < net->max_batches){
+./examples/captcha.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/captcha.c:    int i = *net->seen/imgs;
+./examples/captcha.c:    args.w = net->w;
+./examples/captcha.c:    args.h = net->h;
+./examples/captcha.c:        printf("%d: %f, %f avg, %lf seconds, %ld images\n", i, loss, avg_loss, sec(clock()-time), *net->seen);
+./examples/captcha.c:        image im = load_image_color(input, net->w, net->h);
+./examples/captcha.c:    int outputs = net->outputs;
+./examples/captcha.c:        image im = load_image_color(paths[i], net->w, net->h);
+./examples/captcha.c:   printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/captcha.c:   int i = net->seen/imgs;
+./examples/captcha.c:   net->seen += imgs;
+./examples/captcha.c:   printf("%d: %f, %f avg, %lf seconds, %d images\n", i, loss, avg_loss, sec(clock()-time), net->seen);
+./examples/captcha.c:printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/captcha.c:int i = net->seen/imgs;
+./examples/captcha.c:    net->seen += imgs;
+./examples/captcha.c:    printf("%d: %f, %f avg, %lf seconds, %d images\n", i, loss, avg_loss, sec(clock()-time), net->seen);
+./examples/lsd.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", gnet->learning_rate, gnet->momentum, gnet->decay);
+./examples/lsd.c:    int imgs = gnet->batch*gnet->subdivisions;
+./examples/lsd.c:    int i = *gnet->seen/imgs;
+./examples/lsd.c:    fnet->train=1;
+./examples/lsd.c:    int x_size = fnet->inputs*fnet->batch;
+./examples/lsd.c:    int y_size = fnet->truths*fnet->batch;
+./examples/lsd.c:    int ax_size = anet->inputs*anet->batch;
+./examples/lsd.c:    int ay_size = anet->truths*anet->batch;
+./examples/lsd.c:    fill_gpu(ay_size, .9, anet->truth_gpu, 1);
+./examples/lsd.c:    anet->delta_gpu = cuda_make_array(0, ax_size);
+./examples/lsd.c:    anet->train = 1;
+./examples/lsd.c:    int gx_size = gnet->inputs*gnet->batch;
+./examples/lsd.c:    int gy_size = gnet->truths*gnet->batch;
+./examples/lsd.c:    while (get_current_batch(gnet) < gnet->max_batches) {
+./examples/lsd.c:        for(j = 0; j < fnet->subdivisions; ++j){
+./examples/lsd.c:            layer imlayer = gnet->layers[gnet->n - 1];
+./examples/lsd.c:            get_next_batch(train, fnet->batch, j*fnet->batch, X, y);
+./examples/lsd.c:            *gnet->seen += gnet->batch;
+./examples/lsd.c:            float *feats = fnet->layers[fnet->n - 2].output_gpu;
+./examples/lsd.c:            float *gen = gnet->layers[gnet->n-1].output_gpu;
+./examples/lsd.c:            floss += get_network_cost(fnet) /(fnet->subdivisions*fnet->batch);
+./examples/lsd.c:            for(k = 0; k < gnet->batch; ++k){
+./examples/lsd.c:                int index = j*gnet->batch + k;
+./examples/lsd.c:        image sim = float_to_image(anet->w, anet->h, anet->c, style.X.vals[j]);
+./examples/lsd.c:    for (i = 0; i < net->n; ++i) {
+./examples/lsd.c:        if (net->layers[i].out_c == 3) {
+./examples/lsd.c:            imlayer = net->layers[i];
+./examples/lsd.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/lsd.c:    int imgs = net->batch*net->subdivisions;
+./examples/lsd.c:    i = *net->seen/imgs;
+./examples/lsd.c:    args.w = net->w;
+./examples/lsd.c:    args.h = net->h;
+./examples/lsd.c:    args.min = net->min_crop;
+./examples/lsd.c:    args.max = net->max_crop;
+./examples/lsd.c:    args.angle = net->angle;
+./examples/lsd.c:    args.aspect = net->aspect;
+./examples/lsd.c:    args.exposure = net->exposure;
+./examples/lsd.c:    args.saturation = net->saturation;
+./examples/lsd.c:    args.hue = net->hue;
+./examples/lsd.c:    args.size = net->w;
+./examples/lsd.c:    int x_size = get_network_input_size(net)*net->batch;
+./examples/lsd.c:    int ay_size = get_network_output_size(anet)*anet->batch;
+./examples/lsd.c:    while (get_current_batch(net) < net->max_batches) {
+./examples/lsd.c:            image gim = float_to_image(net->w, net->h, net->c, gray.X.vals[j]);
+./examples/lsd.c:            image yim = float_to_image(net->w, net->h, net->c, train.X.vals[j]);
+./examples/lsd.c:        for(j = 0; j < net->subdivisions; ++j){
+./examples/lsd.c:            get_next_batch(train, net->batch, j*net->batch, pixs, y);
+./examples/lsd.c:            get_next_batch(gray, net->batch, j*net->batch, graypixs, y);
+./examples/lsd.c:            image origi = float_to_image(net->w, net->h, 3, pixs);
+./examples/lsd.c:            image grayi = float_to_image(net->w, net->h, 3, graypixs);
+./examples/lsd.c:            *net->seen += net->batch;
+./examples/lsd.c:            scal_gpu(imlayer.outputs, .1, net->layers[net->n-1].delta_gpu, 1);
+./examples/lsd.c:            printf("features %f\n", cuda_mag_array(net->layers[net->n-1].delta_gpu, imlayer.outputs));
+./examples/lsd.c:            gloss += get_network_cost(net) /(net->subdivisions*net->batch);
+./examples/lsd.c:            for(k = 0; k < net->batch; ++k){
+./examples/lsd.c:                int index = j*net->batch + k;
+./examples/lsd.c:    for (i = 0; i < net->n; ++i) {
+./examples/lsd.c:        if (net->layers[i].out_c == 3) {
+./examples/lsd.c:        image im = make_image(net->w, net->h, net->c);
+./examples/lsd.c:    //float orig_rate = anet->learning_rate;
+./examples/lsd.c:    for (i = 0; i < gnet->n; ++i) {
+./examples/lsd.c:        if (gnet->layers[i].out_c == 3) {
+./examples/lsd.c:            imlayer = gnet->layers[i];
+./examples/lsd.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", gnet->learning_rate, gnet->momentum, gnet->decay);
+./examples/lsd.c:    int imgs = gnet->batch*gnet->subdivisions;
+./examples/lsd.c:    i = *gnet->seen/imgs;
+./examples/lsd.c:    gnet->train = 1;
+./examples/lsd.c:    anet->train = 1;
+./examples/lsd.c:    int x_size = gnet->inputs*gnet->batch;
+./examples/lsd.c:    int y_size = gnet->truths*gnet->batch;
+./examples/lsd.c:    //int ay_size = anet->truths*anet->batch;
+./examples/lsd.c:    while (get_current_batch(gnet) < gnet->max_batches) {
+./examples/lsd.c:        for(j = 0; j < gnet->subdivisions; ++j){
+./examples/lsd.c:            get_next_batch(train, gnet->batch, j*gnet->batch, gnet->truth, 0);
+./examples/lsd.c:                gnet->input[z] = rand_normal();
+./examples/lsd.c:            cuda_push_array(gnet->input_gpu, gnet->input, x_size);
+./examples/lsd.c:            cuda_push_array(gnet->truth_gpu, gnet->truth, y_size);
+./examples/lsd.c:            *gnet->seen += gnet->batch;
+./examples/lsd.c:            fill_gpu(anet->truths*anet->batch, .95, anet->truth_gpu, 1);
+./examples/lsd.c:            copy_gpu(anet->inputs*anet->batch, imlayer.output_gpu, 1, anet->input_gpu, 1);
+./examples/lsd.c:            anet->delta_gpu = imerror;
+./examples/lsd.c:            float genaloss = *anet->cost / anet->batch;
+./examples/lsd.c:            scal_gpu(imlayer.outputs*imlayer.batch, .00, gnet->layers[gnet->n-1].delta_gpu, 1);
+./examples/lsd.c:            printf("features %f\n", cuda_mag_array(gnet->layers[gnet->n-1].delta_gpu, imlayer.outputs*imlayer.batch));
+./examples/lsd.c:            axpy_gpu(imlayer.outputs*imlayer.batch, 1, imerror, 1, gnet->layers[gnet->n-1].delta_gpu, 1);
+./examples/lsd.c:            for(k = 0; k < gnet->batch; ++k){
+./examples/lsd.c:                int index = j*gnet->batch + k;
+./examples/lsd.c:                copy_cpu(gnet->outputs, gnet->output + k*gnet->outputs, 1, gen.X.vals[index], 1);
+./examples/lsd.c:            image im = float_to_image(anet->w, anet->h, anet->c, gen.X.vals[0]);
+./examples/lsd.c:            image im2 = float_to_image(anet->w, anet->h, anet->c, train.X.vals[0]);
+./examples/lsd.c:            anet->learning_rate = 0;
+./examples/lsd.c:            anet->learning_rate = orig_rate;
+./examples/lsd.c:    for (i = 0; i < net->n; ++i) {
+./examples/lsd.c:        if (net->layers[i].out_c == 3) {
+./examples/lsd.c:            imlayer = net->layers[i];
+./examples/lsd.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/lsd.c:    int imgs = net->batch*net->subdivisions;
+./examples/lsd.c:    i = *net->seen/imgs;
+./examples/lsd.c:    int x_size = net->inputs*net->batch;
+./examples/lsd.c:    net->delta = 0;
+./examples/lsd.c:    net->train = 1;
+./examples/lsd.c:    //int ay_size = anet->outputs*anet->batch;
+./examples/lsd.c:    anet->delta = 0;
+./examples/lsd.c:    anet->train = 1;
+./examples/lsd.c:    while (get_current_batch(net) < net->max_batches) {
+./examples/lsd.c:            image gim = float_to_image(net->w, net->h, net->c, gray.X.vals[j]);
+./examples/lsd.c:        for(j = 0; j < net->subdivisions; ++j){
+./examples/lsd.c:            get_next_batch(train, net->batch, j*net->batch, pixs, 0);
+./examples/lsd.c:            get_next_batch(gray, net->batch, j*net->batch, graypixs, 0);
+./examples/lsd.c:            cuda_push_array(net->input_gpu, graypixs, net->inputs*net->batch);
+./examples/lsd.c:            cuda_push_array(net->truth_gpu, pixs, net->truths*net->batch);
+./examples/lsd.c:               image origi = float_to_image(net->w, net->h, 3, pixs);
+./examples/lsd.c:               image grayi = float_to_image(net->w, net->h, 3, graypixs);
+./examples/lsd.c:            *net->seen += net->batch;
+./examples/lsd.c:            copy_gpu(anet->inputs*anet->batch, imlayer.output_gpu, 1, anet->input_gpu, 1);
+./examples/lsd.c:            fill_gpu(anet->inputs*anet->batch, .95, anet->truth_gpu, 1);
+./examples/lsd.c:            anet->delta_gpu = imerror;
+./examples/lsd.c:            scal_gpu(imlayer.outputs*imlayer.batch, 1./100., net->layers[net->n-1].delta_gpu, 1);
+./examples/lsd.c:            printf("features %f\n", cuda_mag_array(net->layers[net->n-1].delta_gpu, imlayer.outputs*imlayer.batch));
+./examples/lsd.c:            axpy_gpu(imlayer.outputs*imlayer.batch, 1, imerror, 1, net->layers[net->n-1].delta_gpu, 1);
+./examples/lsd.c:            gloss += *net->cost /(net->subdivisions*net->batch);
+./examples/lsd.c:            for(k = 0; k < net->batch; ++k){
+./examples/lsd.c:                int index = j*net->batch + k;
+./examples/lsd.c:            image im = float_to_image(anet->w, anet->h, anet->c, gray.X.vals[0]);
+./examples/lsd.c:            image im2 = float_to_image(anet->w, anet->h, anet->c, train.X.vals[0]);
+./examples/lsd.c:    if(clear) *net->seen = 0;
+./examples/lsd.c:    if(clear) *anet->seen = 0;
+./examples/lsd.c:    for (i = 0; i < net->n; ++i) {
+./examples/lsd.c:        if (net->layers[i].out_c == 3) {
+./examples/lsd.c:            imlayer = net->layers[i];
+./examples/lsd.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/lsd.c:    int imgs = net->batch*net->subdivisions;
+./examples/lsd.c:    i = *net->seen/imgs;
+./examples/lsd.c:    args.w = net->w;
+./examples/lsd.c:    args.h = net->h;
+./examples/lsd.c:    args.min = net->min_crop;
+./examples/lsd.c:    args.max = net->max_crop;
+./examples/lsd.c:    args.angle = net->angle;
+./examples/lsd.c:    args.aspect = net->aspect;
+./examples/lsd.c:    args.exposure = net->exposure;
+./examples/lsd.c:    args.saturation = net->saturation;
+./examples/lsd.c:    args.hue = net->hue;
+./examples/lsd.c:    args.size = net->w;
+./examples/lsd.c:    int x_size = get_network_input_size(net)*net->batch;
+./examples/lsd.c:    int y_size = 1*net->batch;
+./examples/lsd.c:    int ay_size = get_network_output_size(anet)*anet->batch;
+./examples/lsd.c:    while (get_current_batch(net) < net->max_batches) {
+./examples/lsd.c:        for(j = 0; j < net->subdivisions; ++j){
+./examples/lsd.c:            get_next_batch(train, net->batch, j*net->batch, X, y);
+./examples/lsd.c:            *net->seen += net->batch;
+./examples/lsd.c:            gloss += get_network_cost(net) /(net->subdivisions*net->batch);
+./examples/lsd.c:            for(k = 0; k < net->batch; ++k){
+./examples/lsd.c:                int index = j*net->batch + k;
+./examples/lsd.c:    if(clear) *net->seen = 0;
+./examples/lsd.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/lsd.c:    int imgs = net->batch*net->subdivisions;
+./examples/lsd.c:    int i = *net->seen/imgs;
+./examples/lsd.c:    args.w = net->w;
+./examples/lsd.c:    args.h = net->h;
+./examples/lsd.c:    args.min = net->min_crop;
+./examples/lsd.c:    args.max = net->max_crop;
+./examples/lsd.c:    args.angle = net->angle;
+./examples/lsd.c:    args.aspect = net->aspect;
+./examples/lsd.c:    args.exposure = net->exposure;
+./examples/lsd.c:    args.saturation = net->saturation;
+./examples/lsd.c:    args.hue = net->hue;
+./examples/lsd.c:    args.size = net->w;
+./examples/lsd.c:    while(get_current_batch(net) < net->max_batches){
+./examples/lsd.c:    for (i = 0; i < net->n; ++i) {
+./examples/lsd.c:        if (net->layers[i].out_c == 3) {
+./examples/lsd.c:        image resized = resize_min(im, net->w);
+./examples/lsd.c:        image crop = crop_image(resized, (resized.w - net->w)/2, (resized.h - net->h)/2, net->w, net->h);
+./examples/coco.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/coco.c:    int imgs = net->batch*net->subdivisions;
+./examples/coco.c:    int i = *net->seen/imgs;
+./examples/coco.c:    layer l = net->layers[net->n - 1];
+./examples/coco.c:    args.w = net->w;
+./examples/coco.c:    args.h = net->h;
+./examples/coco.c:    args.angle = net->angle;
+./examples/coco.c:    args.exposure = net->exposure;
+./examples/coco.c:    args.saturation = net->saturation;
+./examples/coco.c:    args.hue = net->hue;
+./examples/coco.c:    while(get_current_batch(net) < net->max_batches){
+./examples/coco.c:           image im = float_to_image(net->w, net->h, 3, train.X.vals[113]);
+./examples/coco.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/coco.c:    layer l = net->layers[net->n-1];
+./examples/coco.c:    args.w = net->w;
+./examples/coco.c:    args.h = net->h;
+./examples/coco.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/coco.c:    layer l = net->layers[net->n-1];
+./examples/coco.c:        image sized = resize_image(orig, net->w, net->h);
+./examples/coco.c:    layer l = net->layers[net->n-1];
+./examples/coco.c:        image sized = resize_image(im, net->w, net->h);
+./examples/detector.c:    int imgs = net->batch * net->subdivisions * ngpus;
+./examples/detector.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/detector.c:    layer l = net->layers[net->n - 1];
+./examples/detector.c:    while(get_current_batch(net) < net->max_batches){
+./examples/detector.c:            if (get_current_batch(net)+200 > net->max_batches) dim = 608;
+./examples/detector.c:            image im = float_to_image(net->w, net->h, 3, train.X.vals[zz]);
+./examples/detector.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/detector.c:    layer l = net->layers[net->n-1];
+./examples/detector.c:        if(!outfile) outfile = "imagenet-detection";
+./examples/detector.c:    image input = make_image(net->w, net->h, net->c*2);
+./examples/detector.c:    args.w = net->w;
+./examples/detector.c:    args.h = net->h;
+./examples/detector.c:            copy_cpu(net->w*net->h*net->c, val_resized[t].data, 1, input.data, 1);
+./examples/detector.c:            copy_cpu(net->w*net->h*net->c, val_resized[t].data, 1, input.data + net->w*net->h*net->c, 1);
+./examples/detector.c:            get_region_boxes(l, w, h, net->w, net->h, thresh, probs, boxes, 0, 0, map, .5, 0);
+./examples/detector.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/detector.c:    layer l = net->layers[net->n-1];
+./examples/detector.c:        if(!outfile) outfile = "imagenet-detection";
+./examples/detector.c:    args.w = net->w;
+./examples/detector.c:    args.h = net->h;
+./examples/detector.c:            get_region_boxes(l, w, h, net->w, net->h, thresh, probs, boxes, 0, 0, map, .5, 0);
+./examples/detector.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/detector.c:    layer l = net->layers[net->n-1];
+./examples/detector.c:        image sized = resize_image(orig, net->w, net->h);
+./examples/detector.c:        get_region_boxes(l, sized.w, sized.h, net->w, net->h, thresh, probs, boxes, 0, 1, 0, .5, 1);
+./examples/detector.c:        image sized = letterbox_image(im, net->w, net->h);
+./examples/detector.c:        //image sized = resize_image(im, net->w, net->h);
+./examples/detector.c:        //image sized2 = resize_max(im, net->w);
+./examples/detector.c:        //image sized = crop_image(sized2, -((net->w - sized2.w)/2), -((net->h - sized2.h)/2), net->w, net->h);
+./examples/detector.c:        layer l = net->layers[net->n-1];
+./examples/detector.c:        get_region_boxes(l, im.w, im.h, net->w, net->h, thresh, probs, boxes, masks, 0, 0, hier_thresh, 1);
+./examples/attention.c:    float *X = calloc(net->batch*test.X.cols, sizeof(float));
+./examples/attention.c:    float *y = calloc(net->batch*test.y.cols, sizeof(float));
+./examples/attention.c:    for(i = 0; i < test.X.rows; i += net->batch){
+./examples/attention.c:        for(b = 0; b < net->batch; ++b){
+./examples/attention.c:        net->input = X;
+./examples/attention.c:        net->truth = y;
+./examples/attention.c:        net->train = 0;
+./examples/attention.c:        net->delta = 0;
+./examples/attention.c:        float *delta = net->layers[net->n-1].output;
+./examples/attention.c:        for(b = 0; b < net->batch; ++b){
+./examples/attention.c:            float err = sum_array(delta + b*net->outputs, net->outputs);
+./examples/attention.c:            //pred.vals[i+b][0] = 1-delta[b*net->outputs + t];
+./examples/attention.c:    int imgs = net->batch * net->subdivisions * ngpus;
+./examples/attention.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/attention.c:    args.w = divs*net->w/size;
+./examples/attention.c:    args.h = divs*net->h/size;
+./examples/attention.c:    args.size = divs*net->w/size;
+./examples/attention.c:    args.hierarchy = net->hierarchy;
+./examples/attention.c:    args.min = net->min_ratio*args.w;
+./examples/attention.c:    args.max = net->max_ratio*args.w;
+./examples/attention.c:    args.angle = net->angle;
+./examples/attention.c:    args.aspect = net->aspect;
+./examples/attention.c:    args.exposure = net->exposure;
+./examples/attention.c:    args.saturation = net->saturation;
+./examples/attention.c:    args.hue = net->hue;
+./examples/attention.c:    int epoch = (*net->seen)/N;
+./examples/attention.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/attention.c:        data resized = resize_data(train, net->w, net->h);
+./examples/attention.c:        printf("%ld, %.3f: Att: %f, %f avg, Class: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, aloss, avg_att_loss, closs, avg_cls_loss, get_current_rate(net), what_time_is_it_now()-time, *net->seen);
+./examples/attention.c:        if(*net->seen/N > epoch){
+./examples/attention.c:            epoch = *net->seen/N;
+./examples/attention.c:    if(leaf_list) change_leaves(net->hierarchy, leaf_list);
+./examples/attention.c:        image resized = resize_min(im, net->w*divs/size);
+./examples/attention.c:        image crop = crop_image(resized, (resized.w - net->w*divs/size)/2, (resized.h - net->h*divs/size)/2, net->w*divs/size, net->h*divs/size);
+./examples/attention.c:        image rcrop = resize_image(crop, net->w, net->h);
+./examples/attention.c:            int y = row * crop.h / divs - (net->h - crop.h/divs)/2;
+./examples/attention.c:            int x = col * crop.w / divs - (net->w - crop.w/divs)/2;
+./examples/attention.c:            image tile = crop_image(crop, x, y, net->w, net->h);
+./examples/attention.c:        if(net->hierarchy) hierarchy_predictions(pred, net->outputs, net->hierarchy, 1, 1);
+./examples/attention.c:            if(net->hierarchy) hierarchy_predictions(p, net->outputs, net->hierarchy, 1 , 1);
+./examples/attention.c:        image r = letterbox_image(im, net->w, net->h);
+./examples/attention.c:        if(net->hierarchy) hierarchy_predictions(predictions, net->outputs, net->hierarchy, 1, 1);
+./examples/attention.c:        top_k(predictions, net->outputs, top, indexes);
+./examples/attention.c:            //if(net->hierarchy) printf("%d, %s: %f, parent: %s \n",index, names[index], predictions[index], (net->hierarchy->parent[index] >= 0) ? names[net->hierarchy->parent[index]] : "Root");
+./examples/cifar.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/cifar.c:    int epoch = (*net->seen)/N;
+./examples/cifar.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/cifar.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), sec(clock()-time), *net->seen);
+./examples/cifar.c:        if(*net->seen/N > epoch){
+./examples/cifar.c:            epoch = *net->seen/N;
+./examples/cifar.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/cifar.c:    int epoch = (*net->seen)/N;
+./examples/cifar.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/cifar.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), sec(clock()-time), *net->seen);
+./examples/cifar.c:        if(*net->seen/N > epoch){
+./examples/cifar.c:            epoch = *net->seen/N;
+./examples/art.c:        image in_s = resize_image(in, net->w, net->h);
+./examples/darknet.c:        for(j = 0; j < net->n; ++j){
+./examples/darknet.c:            layer l = net->layers[j];
+./examples/darknet.c:    for(j = 0; j < net->n; ++j){
+./examples/darknet.c:    for(i = 0; i < net->n; ++i){
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:    image im = make_image(net->w, net->h, net->c*net->batch);
+./examples/darknet.c:    int oldn = net->layers[net->n - 2].n;
+./examples/darknet.c:    int c = net->layers[net->n - 2].c;
+./examples/darknet.c:    scal_cpu(oldn*c, .1, net->layers[net->n - 2].weights, 1);
+./examples/darknet.c:    scal_cpu(oldn, 0, net->layers[net->n - 2].biases, 1);
+./examples/darknet.c:    net->layers[net->n - 2].n = 11921;
+./examples/darknet.c:    net->layers[net->n - 2].biases += 5;
+./examples/darknet.c:    net->layers[net->n - 2].weights += 5*c;
+./examples/darknet.c:    net->layers[net->n - 2].biases -= 5;
+./examples/darknet.c:    net->layers[net->n - 2].weights -= 5*c;
+./examples/darknet.c:    net->layers[net->n - 2].n = oldn;
+./examples/darknet.c:    layer l = net->layers[net->n - 2];
+./examples/darknet.c:    *net->seen = 0;
+./examples/darknet.c:        load_weights_upto(net, weightfile, 0, net->n);
+./examples/darknet.c:        load_weights_upto(net, weightfile, l, net->n);
+./examples/darknet.c:    *net->seen = 0;
+./examples/darknet.c:    save_weights_upto(net, outfile, net->n);
+./examples/darknet.c:    for(i = 0; i < net->n; ++i){
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:    for(i = 0; i < net->n; ++i){
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:    for (i = 0; i < net->n; ++i) {
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:    for(i = 0; i < net->n; ++i){
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:            net->layers[i] = normalize_layer(l, l.n);
+./examples/darknet.c:            net->layers[i] = normalize_layer(l, l.outputs);
+./examples/darknet.c:            net->layers[i].batch_normalize=1;
+./examples/darknet.c:    for (i = 0; i < net->n; ++i) {
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:    for (i = 0; i < net->n; ++i) {
+./examples/darknet.c:        layer l = net->layers[i];
+./examples/darknet.c:            net->layers[i].batch_normalize=0;
+./examples/darknet.c:            net->layers[i].batch_normalize=0;
+./examples/darknet.c:            net->layers[i].batch_normalize=0;
+./examples/darknet.c:    image *ims = get_weights(net->layers[0]);
+./examples/darknet.c:    int n = net->layers[0].n;
+./examples/regressor.c:    int imgs = net->batch * net->subdivisions * ngpus;
+./examples/regressor.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/regressor.c:    args.w = net->w;
+./examples/regressor.c:    args.h = net->h;
+./examples/regressor.c:    args.min = net->min_crop;
+./examples/regressor.c:    args.max = net->max_crop;
+./examples/regressor.c:    args.angle = net->angle;
+./examples/regressor.c:    args.aspect = net->aspect;
+./examples/regressor.c:    args.exposure = net->exposure;
+./examples/regressor.c:    args.saturation = net->saturation;
+./examples/regressor.c:    args.hue = net->hue;
+./examples/regressor.c:    args.size = net->w;
+./examples/regressor.c:    int epoch = (*net->seen)/N;
+./examples/regressor.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/regressor.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), sec(clock()-time), *net->seen);
+./examples/regressor.c:        if(*net->seen/N > epoch){
+./examples/regressor.c:            epoch = *net->seen/N;
+./examples/regressor.c:        image sized = letterbox_image(im, net->w, net->h);
+./examples/regressor.c:        image in_s = letterbox_image(in, net->w, net->h);
+./examples/tag.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/tag.c:    args.w = net->w;
+./examples/tag.c:    args.h = net->h;
+./examples/tag.c:    args.min = net->w;
+./examples/tag.c:    args.max = net->max_crop;
+./examples/tag.c:    args.size = net->w;
+./examples/tag.c:    args.classes = net->outputs;
+./examples/tag.c:    args.angle = net->angle;
+./examples/tag.c:    args.exposure = net->exposure;
+./examples/tag.c:    args.saturation = net->saturation;
+./examples/tag.c:    args.hue = net->hue;
+./examples/tag.c:    fprintf(stderr, "%d classes\n", net->outputs);
+./examples/tag.c:    int epoch = (*net->seen)/N;
+./examples/tag.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/tag.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), sec(clock()-time), *net->seen);
+./examples/tag.c:        if(*net->seen/N > epoch){
+./examples/tag.c:            epoch = *net->seen/N;
+./examples/tag.c:    int size = net->w;
+./examples/classifier.c:    int imgs = net->batch * net->subdivisions * ngpus;
+./examples/classifier.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/classifier.c:    args.w = net->w;
+./examples/classifier.c:    args.h = net->h;
+./examples/classifier.c:    args.hierarchy = net->hierarchy;
+./examples/classifier.c:    args.min = net->min_ratio*net->w;
+./examples/classifier.c:    args.max = net->max_ratio*net->w;
+./examples/classifier.c:    args.angle = net->angle;
+./examples/classifier.c:    args.aspect = net->aspect;
+./examples/classifier.c:    args.exposure = net->exposure;
+./examples/classifier.c:    args.saturation = net->saturation;
+./examples/classifier.c:    args.hue = net->hue;
+./examples/classifier.c:    args.size = net->w;
+./examples/classifier.c:    int epoch = (*net->seen)/N;
+./examples/classifier.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/classifier.c:        if(net->random && count++%40 == 0){
+./examples/classifier.c:            //if (get_current_batch(net)+200 > net->max_batches) dim = 608;
+./examples/classifier.c:            args.min = net->min_ratio*dim;
+./examples/classifier.c:            args.max = net->max_ratio*dim;
+./examples/classifier.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), what_time_is_it_now()-time, *net->seen);
+./examples/classifier.c:        if(*net->seen/N > epoch){
+./examples/classifier.c:            epoch = *net->seen/N;
+./examples/classifier.c:    args.w = net->w;
+./examples/classifier.c:    args.h = net->h;
+./examples/classifier.c:        int w = net->w;
+./examples/classifier.c:        int h = net->h;
+./examples/classifier.c:            if(net->hierarchy) hierarchy_predictions(p, net->outputs, net->hierarchy, 1, 1);
+./examples/classifier.c:    int size = net->w;
+./examples/classifier.c:        if(net->hierarchy) hierarchy_predictions(pred, net->outputs, net->hierarchy, 1, 1);
+./examples/classifier.c:    if(leaf_list) change_leaves(net->hierarchy, leaf_list);
+./examples/classifier.c:        image resized = resize_min(im, net->w);
+./examples/classifier.c:        image crop = crop_image(resized, (resized.w - net->w)/2, (resized.h - net->h)/2, net->w, net->h);
+./examples/classifier.c:        if(net->hierarchy) hierarchy_predictions(pred, net->outputs, net->hierarchy, 1, 1);
+./examples/classifier.c:            if(net->hierarchy) hierarchy_predictions(p, net->outputs, net->hierarchy, 1 , 1);
+./examples/classifier.c:        layer l = net->layers[layer_num];
+./examples/classifier.c:        image r = letterbox_image(im, net->w, net->h);
+./examples/classifier.c:        if(net->hierarchy) hierarchy_predictions(predictions, net->outputs, net->hierarchy, 1, 1);
+./examples/classifier.c:        top_k(predictions, net->outputs, top, indexes);
+./examples/classifier.c:            //if(net->hierarchy) printf("%d, %s: %f, parent: %s \n",index, names[index], predictions[index], (net->hierarchy->parent[index] >= 0) ? names[net->hierarchy->parent[index]] : "Root");
+./examples/classifier.c:        image resized = resize_min(im, net->w);
+./examples/classifier.c:        image crop = crop_image(resized, (resized.w - net->w)/2, (resized.h - net->h)/2, net->w, net->h);
+./examples/classifier.c:    args.w = net->w;
+./examples/classifier.c:    args.h = net->h;
+./examples/classifier.c:    args.n = net->batch;
+./examples/classifier.c:    for(curr = net->batch; curr < m; curr += net->batch){
+./examples/classifier.c:            if (curr + net->batch > m) args.n = m - curr;
+./examples/classifier.c:            //layer l = net->layers[target_layer];
+./examples/classifier.c:            printf("%s", paths[curr-net->batch+i]);
+./examples/classifier.c:        image in_s = resize_image(in, net->w, net->h);
+./examples/classifier.c:        image in_s = resize_image(in, net->w, net->h);
+./examples/classifier.c:        image in_s = resize_image(in, net->w, net->h);
+./examples/classifier.c:        if(net->hierarchy) hierarchy_predictions(predictions, net->outputs, net->hierarchy, 1, 1);
+./examples/yolo.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/yolo.c:    int imgs = net->batch*net->subdivisions;
+./examples/yolo.c:    int i = *net->seen/imgs;
+./examples/yolo.c:    layer l = net->layers[net->n - 1];
+./examples/yolo.c:    args.w = net->w;
+./examples/yolo.c:    args.h = net->h;
+./examples/yolo.c:    args.angle = net->angle;
+./examples/yolo.c:    args.exposure = net->exposure;
+./examples/yolo.c:    args.saturation = net->saturation;
+./examples/yolo.c:    args.hue = net->hue;
+./examples/yolo.c:    while(get_current_batch(net) < net->max_batches){
+./examples/yolo.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/yolo.c:    layer l = net->layers[net->n-1];
+./examples/yolo.c:    args.w = net->w;
+./examples/yolo.c:    args.h = net->h;
+./examples/yolo.c:    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/yolo.c:    layer l = net->layers[net->n-1];
+./examples/yolo.c:        image sized = resize_image(orig, net->w, net->h);
+./examples/yolo.c:    layer l = net->layers[net->n-1];
+./examples/yolo.c:        image sized = resize_image(im, net->w, net->h);
+./examples/go.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+./examples/go.c:    int epoch = (*net->seen)/N;
+./examples/go.c:    while(get_current_batch(net) < net->max_batches || net->max_batches == 0){
+./examples/go.c:        data train = random_go_moves(m, net->batch*net->subdivisions*ngpus);
+./examples/go.c:        printf("%ld, %.3f: %f, %f avg, %f rate, %lf seconds, %ld images\n", get_current_batch(net), (float)(*net->seen)/N, loss, avg_loss, get_current_rate(net), what_time_is_it_now()-time, *net->seen);
+./examples/go.c:        if(*net->seen/N > epoch){
+./examples/go.c:            epoch = *net->seen/N;
+./examples/go.c:    int n = net->batch;
+./examples/go.c:    printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+Binary file ./.git/index matches
+Binary file ./darknet matches
+./README.md:![Darknet Logo](http://pjreddie.com/media/files/darknet-black-small.png)
