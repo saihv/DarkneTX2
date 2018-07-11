@@ -580,8 +580,14 @@ void network_detect_batch(network *net, matrix test, float thresh, float hier_th
        	} 
 
         out = network_predict(net, X);
-        layer l = net->layers[net->n-1];
-        
+	layer l = net->layers[net->n-1];
+	float **outputLoc = calloc(net->batch, sizeof(float*));
+        for (b = 0; b < net->batch; ++b)
+	    outputLoc[b] = l.output + b*l.w*l.h*l.c;
+
+        #pragma omp parallel num_threads(4)
+        {
+        #pragma omp for 
         for(b = 0; b < net->batch; ++b){
 	    if (i+b < test.rows) {
                 box *boxesBatch = calloc(l.w*l.h*l.n, sizeof(box));
@@ -590,7 +596,7 @@ void network_detect_batch(network *net, matrix test, float thresh, float hier_th
                 for(j = 0; j < l.w*l.h*l.n; ++j) 
                     probsBatch[j] = calloc(l.classes + 1, sizeof(float*));  
                 int maxidx, maxclass;
-                get_region_boxes_dac(l, w, h, net->w, net->h, thresh, probsBatch, boxesBatch, 0, 0, 0, hier_thresh, 0, &maxidx, &maxclass);
+                get_region_boxes_dac(l, outputLoc[b], w, h, net->w, net->h, thresh, probsBatch, boxesBatch, 0, 0, 0, hier_thresh, 0, &maxidx, &maxclass);
                 idx[i+b] = maxidx;
                 cls[i+b] = maxclass; 
  
@@ -599,8 +605,9 @@ void network_detect_batch(network *net, matrix test, float thresh, float hier_th
 
                 boxes[i+b] = boxesBatch;
                 probs[i+b] = probsBatch;
-                l.output = l.output + (l.w*l.h*l.c);
+                // l.output = l.output + (l.w*l.h*l.c);
             }
+        }
         }
     }
     free(X);

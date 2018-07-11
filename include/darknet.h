@@ -657,7 +657,7 @@ void load_weights_upto(network *net, char *filename, int start, int cutoff);
 
 void zero_objectness(layer l);
 void get_region_boxes(layer l, int w, int h, int netw, int neth, float thresh, float **probs, box *boxes, float **masks, int only_objectness, int *map, float tree_thresh, int relative);
-void get_region_boxes_dac(layer l, int w, int h, int netw, int neth, float thresh, float **probs, box *boxes, float **masks, int only_objectness, int *map, float tree_thresh, int relative, int *maxidx, int *maxclass);
+void get_region_boxes_dac(layer l, float *out, int w, int h, int netw, int neth, float thresh, float **probs, box *boxes, float **masks, int only_objectness, int *map, float tree_thresh, int relative, int *maxidx, int *maxclass);
 void free_network(network *net);
 void set_batch_network(network *net, int b);
 void set_temp_network(network *net, float t);

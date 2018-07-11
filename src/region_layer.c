@@ -367,10 +367,10 @@ void correct_region_boxes(box *boxes, int n, int w, int h, int netw, int neth, i
     }
 }
 
-void get_region_boxes_dac(layer l, int w, int h, int netw, int neth, float thresh, float **probs, box *boxes, float **masks, int only_objectness, int *map, float tree_thresh, int relative, int *maxidx, int *maxclass)
+void get_region_boxes_dac(layer l, float *out, int w, int h, int netw, int neth, float thresh, float **probs, box *boxes, float **masks, int only_objectness, int *map, float tree_thresh, int relative, int *maxidx, int *maxclass)
 {
     int i,j,n,z;
-    float *predictions = l.output;
+    float *predictions = out;
     if (l.batch == 2) {
         float *flip = l.output + l.outputs;
         for (j = 0; j < l.h; ++j) {
@@ -442,20 +442,7 @@ void get_region_boxes_dac(layer l, int w, int h, int netw, int neth, float thres
                     else {
                         probs[index][j] = 0;
                     }    
-                       
-                    // probs[index][j] = (prob > thresh) ? prob : 0;
-
-
-                    // TODO REMOVE
-                    // if (j == 56 ) probs[index][j] = 0; 
-                    /*
-                       if (j != 0) probs[index][j] = 0; 
-                       int blacklist[] = {121, 497, 482, 504, 122, 518,481, 418, 542, 491, 914, 478, 120, 510,500};
-                       int bb;
-                       for (bb = 0; bb < sizeof(blacklist)/sizeof(int); ++bb){
-                       if(index == blacklist[bb]) probs[index][j] = 0;
-                       }
-                     */
+                    
                 }
                 probs[index][l.classes] = max;
             }
